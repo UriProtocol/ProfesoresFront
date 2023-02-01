@@ -62,11 +62,18 @@ const ProfesoresAgregar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formSexo">
             <Form.Label>Sexo:</Form.Label>
-            <Form.Control type="text" placeholder="Ingresa tu sexo" name='sexo' value={sexo} onChange={handleChange} required/>
+            <Form.Select aria-label="Default select example" name='sexo' required value={sexo} onChange={handleChange}>
+              <option value="1">Masculino</option>
+              <option value="2">Femenino</option>
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formestadoCivil">
             <Form.Label>Estado civil:</Form.Label>
-            <Form.Control type="text" placeholder="Ingresa tu estado civil" name='estadoCivil' value={estadoCivil} onChange={handleChange} required/>
+            <Form.Select aria-label="Default select example" name='estadoCivil' required value={estadoCivil} onChange={handleChange}>
+              <option value="1">Soltero (a)</option>
+              <option value="2">Casado (a)</option>
+              <option value="3">Unión libre</option>
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCasa">
             <Form.Label>Telefono de casa:</Form.Label>
