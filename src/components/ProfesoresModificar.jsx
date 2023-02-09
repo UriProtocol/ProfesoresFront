@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Row, Container, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from 'react-router-dom';
 const ProfesoresModificar = () => {
 
   const initialState = {
     clave: '',
-    nombre: '',
+    nombres: '',
     apellidos: '',
     fNacimiento: '',
     email: '',
     sexo: '',
     estadoCivil: '',
-    tCasa: '',
+    tcasa: '',
     curp: '',
-    tCelular: '',
+    telular: '',
     calle: '',
     colonia: '',
     cp: '',
@@ -25,35 +26,41 @@ const ProfesoresModificar = () => {
     estado: '',
     // estatus: ''
   }
+  const {c} = useParams()
+
+  useEffect(()=>{
+    traerProfesor(c)
+  }, [])
+
 
   const [datos, setDatos] = useState(initialState)
-  const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
+  const {clave, nombres, apellidos, fNacimiento, email, sexo, estadoCivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
   const handleChange = e =>{
     let {name, value} = e.target
     setDatos({...datos, [name]:value})
   }
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
+    const {clave, nombres, apellidos, fNacimiento, email, sexo, estadoCivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
     const formData = new FormData()
 
     formData.append("clave",clave)
-    formData.append("nombre",nombre)
+    formData.append("nombre",nombres)
     formData.append("apellidos",apellidos)
     formData.append("fNacimiento",fNacimiento)
     formData.append("email",email)
     formData.append("sexo",sexo)
     formData.append("estadoCivil",estadoCivil)
-    formData.append("tCasa",tCasa)
+    formData.append("tcasa",tcasa)
     formData.append("curp",curp)
-    formData.append("tCelular",tCelular)
+    formData.append("tCelular",tcelular)
     formData.append("calle",calle)
     formData.append("colonia",colonia)
     formData.append("cp",cp)
     formData.append("municipio",municipio)
     formData.append("estado",estado)
 
-    await axios.post("http://localhost:5000/profesores/agregar", formData).then(response =>{
+    await axios.post("http://localhost:5000/profesores/modificar", formData).then(response =>{
       // console.log(response)
       notify(response.status)
     }).catch(err =>{
@@ -80,7 +87,24 @@ const ProfesoresModificar = () => {
   const handleCancelar = () =>{
     setDatos(initialState)
   }
+  const traerProfesor = async(clave) =>{
+    await axios
+    .get(`http://localhost:5000/profesor/${clave}`)
+    .then(function (response) {
+      // handle success
+      console.log(response.data.result[0])
+      setDatos(response.data.result[0])
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+  }
 
+  console.log(datos)
   return (
     <>
       <Container style={{paddingLeft: '6rem', paddingRight: '6rem'}}>
@@ -96,7 +120,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formNombre">
             <Form.Label>Nombres:</Form.Label>
-            <Form.Control type="text" placeholder="Ingresa tu nombre" name='nombre' value={nombre} onChange={handleChange} required/>
+            <Form.Control type="text" placeholder="Ingresa tu nombre" name='nombre' value={nombres} onChange={handleChange} required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formApellidos">
             <Form.Label>Apellidos:</Form.Label>
@@ -127,7 +151,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCasa">
             <Form.Label>Telefono de casa:</Form.Label>
-            <Form.Control type="tel" placeholder="Ingresa tu telefono de casa" name='tCasa' value={tCasa} onChange={handleChange}  required/>
+            <Form.Control type="tel" placeholder="Ingresa tu telefono de casa" name='tCasa' value={tcasa} onChange={handleChange}  required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCurp">
             <Form.Label>CURP:</Form.Label>
@@ -135,7 +159,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formstCelular">
             <Form.Label>Telefono celular:</Form.Label>
-            <Form.Control type="tel" placeholder="Ingresa tu telefono celular" name='tCelular' value={tCelular} onChange={handleChange}  required/>
+            <Form.Control type="tel" placeholder="Ingresa tu telefono celular" name='tCelular' value={tcelular} onChange={handleChange}  required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCalle">
             <Form.Label>Calle:</Form.Label>
