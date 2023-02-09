@@ -5,10 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
-// import { useSearchParams } from 'react-router-dom';
+const ProfesoresModificar = () => {
 
-const ProfesoresAgregar = () => {
   const initialState = {
     clave: '',
     nombre: '',
@@ -27,13 +25,13 @@ const ProfesoresAgregar = () => {
     estado: '',
     // estatus: ''
   }
+
   const [datos, setDatos] = useState(initialState)
   const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
   const handleChange = e =>{
     let {name, value} = e.target
     setDatos({...datos, [name]:value})
   }
-  const navigate = useNavigate()
   const handleSubmit = async(e) =>{
     e.preventDefault()
     const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
@@ -70,7 +68,7 @@ const ProfesoresAgregar = () => {
             position: toast.POSITION.TOP_CENTER,
             onClose:() =>{
               handleCancelar()
-              navigate('/profesores')
+              // navigate('/profesores')
             },
             autoClose:800,
           },
@@ -174,4 +172,4 @@ const ProfesoresAgregar = () => {
   )
 }
 
-export default ProfesoresAgregar
+export default ProfesoresModificar

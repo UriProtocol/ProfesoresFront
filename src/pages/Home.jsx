@@ -1,9 +1,10 @@
 import React from 'react'
-import BarraSuperior from '../components/BarraSuperior'
 
 const Home = () => {
   return (
-    <BarraSuperior />
+    <>
+      <h1>Home</h1>
+    </>
   )
 }
 
