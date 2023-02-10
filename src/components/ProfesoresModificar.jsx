@@ -7,7 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import {format} from 'date-fns'
+import { useNavigate } from 'react-router-dom'
+
 const ProfesoresModificar = () => {
+
+  const navigate = useNavigate()
+
 
   const initialState = {
     clave: '',
@@ -31,8 +36,11 @@ const ProfesoresModificar = () => {
 
   useEffect(()=>{
     traerProfesor(c)
-  }, [])
+  }, [c])
 
+
+  //Hook para reegresar después de actualizar
+  const[regresar, setRegresar] = useState(false)
 
   const [datos, setDatos] = useState(initialState)
   const {clave, nombres, apellidos, fnacimiento, email, sexo, estadocivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
@@ -76,11 +84,11 @@ const ProfesoresModificar = () => {
             position: toast.POSITION.TOP_CENTER,
             onClose:() =>{
               handleCancelar()
+              navigate('/profesores')
             },
             autoClose:800,
           },
         )
-
       }
     }
   }
