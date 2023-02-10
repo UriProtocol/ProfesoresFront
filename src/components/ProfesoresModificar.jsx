@@ -40,7 +40,6 @@ const ProfesoresModificar = () => {
 
 
   //Hook para reegresar después de actualizar
-  const[regresar, setRegresar] = useState(false)
 
   const [datos, setDatos] = useState(initialState)
   const {clave, nombres, apellidos, fnacimiento, email, sexo, estadocivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
