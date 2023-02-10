@@ -6,16 +6,17 @@ import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
+import {format} from 'date-fns'
 const ProfesoresModificar = () => {
 
   const initialState = {
     clave: '',
     nombres: '',
     apellidos: '',
-    fNacimiento: '',
+    fnacimiento: '',
     email: '',
     sexo: '',
-    estadoCivil: '',
+    estadocivil: '',
     tcasa: '',
     curp: '',
     telular: '',
@@ -34,26 +35,26 @@ const ProfesoresModificar = () => {
 
 
   const [datos, setDatos] = useState(initialState)
-  const {clave, nombres, apellidos, fNacimiento, email, sexo, estadoCivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
+  const {clave, nombres, apellidos, fnacimiento, email, sexo, estadocivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
   const handleChange = e =>{
     let {name, value} = e.target
     setDatos({...datos, [name]:value})
   }
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const {clave, nombres, apellidos, fNacimiento, email, sexo, estadoCivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
+    const {clave, nombres, apellidos, fnacimiento, email, sexo, estadocivil, tcasa, curp, tcelular, calle, colonia, cp, municipio, estado} = datos
     const formData = new FormData()
 
     formData.append("clave",clave)
-    formData.append("nombre",nombres)
+    formData.append("nombres",nombres)
     formData.append("apellidos",apellidos)
-    formData.append("fNacimiento",fNacimiento)
+    formData.append("fnacimiento",fnacimiento)
     formData.append("email",email)
     formData.append("sexo",sexo)
-    formData.append("estadoCivil",estadoCivil)
+    formData.append("estadocivil",estadocivil)
     formData.append("tcasa",tcasa)
     formData.append("curp",curp)
-    formData.append("tCelular",tcelular)
+    formData.append("tcelular",tcelular)
     formData.append("calle",calle)
     formData.append("colonia",colonia)
     formData.append("cp",cp)
@@ -69,18 +70,17 @@ const ProfesoresModificar = () => {
 
     function notify(num) {
       if(num===200){
-        toast.success(
-          'Profesor agregado',
+        toast.info(
+          'Profesor modificado',
           {
             position: toast.POSITION.TOP_CENTER,
             onClose:() =>{
               handleCancelar()
-              // navigate('/profesores')
             },
             autoClose:800,
           },
-
         )
+
       }
     }
   }
@@ -91,9 +91,10 @@ const ProfesoresModificar = () => {
     await axios
     .get(`http://localhost:5000/profesor/${clave}`)
     .then(function (response) {
-      // handle success
-      console.log(response.data.result[0])
-      setDatos(response.data.result[0])
+      const nuevaFecha = format(new Date(response.data.result[0].fnacimiento), 'yyyy-MM-dd')
+      const initialState2 = {...response.data.result[0], fnacimiento: nuevaFecha}
+
+      setDatos(initialState2)
     })
     .catch(function (error) {
       // handle error
@@ -104,7 +105,6 @@ const ProfesoresModificar = () => {
     });
   }
 
-  console.log(datos)
   return (
     <>
       <Container style={{paddingLeft: '6rem', paddingRight: '6rem'}}>
@@ -120,7 +120,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formNombre">
             <Form.Label>Nombres:</Form.Label>
-            <Form.Control type="text" placeholder="Ingresa tu nombre" name='nombre' value={nombres} onChange={handleChange} required/>
+            <Form.Control type="text" placeholder="Ingresa tu nombre" name='nombres' value={nombres} onChange={handleChange} required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formApellidos">
             <Form.Label>Apellidos:</Form.Label>
@@ -128,7 +128,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formfNacimiento">
             <Form.Label>Fecha de nacimiento:</Form.Label>
-            <Form.Control type="date" placeholder="Ingresa tu fecha de nacimiento" name='fNacimiento' value={fNacimiento} onChange={handleChange} required/>
+            <Form.Control type="date" placeholder="Ingresa tu fecha de nacimiento" name='fnacimiento' value={fnacimiento} onChange={handleChange} required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formEmail">
             <Form.Label>Correo electrónico:</Form.Label>
@@ -143,7 +143,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formestadoCivil">
             <Form.Label>Estado civil:</Form.Label>
-            <Form.Select aria-label="Default select example" name='estadoCivil' required value={estadoCivil} onChange={handleChange}>
+            <Form.Select aria-label="Default select example" name='estadocivil' required value={estadocivil} onChange={handleChange}>
               <option value="Soltero">Soltero (a)</option>
               <option value="Casado">Casado (a)</option>
               <option value="Unión libre">Unión libre</option>
@@ -151,7 +151,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCasa">
             <Form.Label>Telefono de casa:</Form.Label>
-            <Form.Control type="tel" placeholder="Ingresa tu telefono de casa" name='tCasa' value={tcasa} onChange={handleChange}  required/>
+            <Form.Control type="tel" placeholder="Ingresa tu telefono de casa" name='tcasa' value={tcasa} onChange={handleChange}  required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCurp">
             <Form.Label>CURP:</Form.Label>
@@ -159,7 +159,7 @@ const ProfesoresModificar = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formstCelular">
             <Form.Label>Telefono celular:</Form.Label>
-            <Form.Control type="tel" placeholder="Ingresa tu telefono celular" name='tCelular' value={tcelular} onChange={handleChange}  required/>
+            <Form.Control type="tel" placeholder="Ingresa tu telefono celular" name='tcelular' value={tcelular} onChange={handleChange}  required/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formsCalle">
             <Form.Label>Calle:</Form.Label>
