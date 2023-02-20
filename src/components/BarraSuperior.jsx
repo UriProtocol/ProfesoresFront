@@ -18,12 +18,7 @@ const BarraSuperior = () => {
                         <NavDropdown title="Profesores" id="basic-nav-dropdown">
                         <NavDropdown.Item as = {Link} to = '/profesores'>Inicio</NavDropdown.Item>
                         <NavDropdown.Item as = {Link} to = '/profesores/agregar'>Agregar</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                            Separated link
-                        </NavDropdown.Item>
-                        </NavDropdown>
+                        </NavDropdown> 
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
