@@ -1,38 +1,36 @@
-.App {
-  text-align: center;
+.regresar, .siguiente{
+  transition: all 0.2s ease;
+  cursor: pointer;
+  padding: 2rem;
+}
+.regresar:hover{
+  translate: -0.5rem 0;
+}
+.regresar::after{
+  content: "Regresar";
+  position: absolute;
+  font-size: 0.9rem;
+  translate: 1rem 0.25rem;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+.siguiente:hover{
+  translate: 0.5rem 0;
+}
+.siguiente::before{
+  content: "Siguiente";
+  position: absolute;
+  font-size: 0.9rem;
+  translate: -4.5rem 0.25rem;
+  opacity: 0;
+  transition: all 0.2s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.regresar:hover::after{
+  opacity: 1;
+  translate: 0.5rem 0.25rem;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.siguiente:hover::before{
+  opacity: 1;
+  translate: -4rem 0.25rem;
 }

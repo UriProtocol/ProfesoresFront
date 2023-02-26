@@ -16,7 +16,7 @@ const BarraSuperior = () => {
                     <Nav className="me-auto">
                         <Nav.Link as = {Link} to = '/'>Inicio</Nav.Link>
                         <NavDropdown title="Profesores" id="basic-nav-dropdown">
-                        <NavDropdown.Item as = {Link} to = '/profesores'>Inicio</NavDropdown.Item>
+                        <NavDropdown.Item as = {Link} to = '/profesores/'>Inicio</NavDropdown.Item>
                         <NavDropdown.Item as = {Link} to = '/profesores/agregar'>Agregar</NavDropdown.Item>
                         </NavDropdown> 
                     </Nav>

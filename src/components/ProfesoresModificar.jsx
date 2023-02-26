@@ -68,7 +68,7 @@ const ProfesoresModificar = () => {
     formData.append("municipio",municipio)
     formData.append("estado",estado)
 
-    await axios.post("http://localhost:5000/profesores/modificar", formData).then(response =>{
+    await axios.put("http://localhost:5000/profesores/modificar", formData).then(response =>{
       // console.log(response)
       notify(response.status)
     }).catch(err =>{

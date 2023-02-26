@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Profesores = () => {
 
+
   const initialState = {
     show: false,
     clave: '',
@@ -21,6 +22,7 @@ const Profesores = () => {
 
   useEffect(() => {
     traerDatos();
+    localStorage.clear()
   }, []);
 
   const navigate = useNavigate();
@@ -34,51 +36,88 @@ const Profesores = () => {
   const handleClose = () =>{
     setShow(initialState)
   }
-  const handleEliminar = (clave, nombre, apellidos) =>{
+  const handleEliminar = (clave, nombre, apellidos, eliminar) =>{
     const showState = {
       show: true,
       clave,
       nombre,
-      apellidos
+      apellidos,
+      eliminar
     }
     setShow(showState)
   }
 
-  const handleEliminar2 = (clave) => {
-    axios.get(`http://localhost:5000/profesor/eliminar/${ clave }`)
+  const handleEliminarProfesor = async(clave) => {
+    await axios.get(`http://localhost:5000/profesor/eliminar/${ clave }`)
     .then(function(response){
       if(response.data.result.affectedRows>0){
-        notify(response.status)
+        notify(response.status, 'profesor')
         traerDatos();
+        setShow(initialState)
+      }else{
+        notify(404)
         setShow(initialState)
       }
     })
     .catch(function(error) {
       console.log(error)
     })
+    await axios.delete(`http://localhost:5000/curriculum/eliminar/${ clave }`).catch(err => console.log(err))
   }
 
-  function notify(num) {
+  const handleEliminarCurriculum = async(clave) => {
+    
+    await axios.delete(`http://localhost:5000/curriculum/eliminar/${ clave }`).then(response => {
+      // if(response.data.result.affectedRows>0){
+      //   notify(response.status)
+      //   traerDatos();
+      //   setShow(initialState)
+      // }else{
+      //   notify(404)
+      //   setShow(initialState)
+      // }
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+    await axios.patch("http://127.0.0.1:5000/curriculum/profesor", {clave: clave, bool: 0}).then(response =>{
+      notify(response.status, 'curriculum')
+      traerDatos();
+      setShow(initialState)
+    }).catch(err =>{
+      console.log(err)
+    })
+  }
+
+  function notify(num, tipo) {
     if(num===200){
+
+      const mensaje = tipo === 'profesor' ? 'Profesor eliminado' : 'Currículum eliminado'
+
       toast.error(
-        'Profesor eliminado',
+          mensaje,
         {
           position: toast.POSITION.TOP_CENTER,
-          onClose:() =>{
-          },
           autoClose:800,
           theme: 'colored'
+        },
+
+      )
+    }else if(num===404){
+      toast.warning(
+        'No se ha encontrado el registro',
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose:800,
         },
 
       )
     }
   }
 
-
-
   return (
     <>
-      <Container className="mt-5">
+      <Container className="mt-5 text-center">
       <Row>
           <Col>
             <ToastContainer /> 
@@ -86,7 +125,7 @@ const Profesores = () => {
         </Row>
         <Row>
           <Col>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
               <thead>
                 <tr>
                   <th>Clave</th>
@@ -95,6 +134,7 @@ const Profesores = () => {
                   <th>Curp</th>
                   <th>Tel. Movil</th>
                   <th>Estatus</th>
+                  <th>Curriculum</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -108,18 +148,37 @@ const Profesores = () => {
                     <td>{prof.tcelular}</td>
                     <td>{prof.estatus}</td>
                     <td>
-                      <Button
-                        onClick={() =>
-                          navigate(`/profesores/modificar/${prof.clave}`)
+                      <div className="d-grid gap-2 place-content-center h-100">
+                        {prof.curriculum === 0
+                        ? <Button variant="success" size="sm" onClick={() => navigate(`curriculum/${prof.clave}/seccion1`)}>Crear</Button>
+                        : <>
+                            <Button variant="info" size="sm">Ver</Button>
+                            <Button variant="warning" size="sm">Modificar</Button>
+                            <Button variant="danger" onClick={() => handleEliminar(prof.clave, prof.nombres, prof.apellidos, 'curriculum')} size="sm">Eliminar</Button>
+                          </>
                         }
-                        variant="primary"
-                        size="sm"
-                      >
-                        Modificar
-                      </Button>{" "}
-                      <Button variant="danger" size="sm" className="ms-2" onClick={() => handleEliminar(prof.clave, prof.nombres, prof.apellidos)}>
-                        Eliminar
-                      </Button>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="d-grid gap-2 place-content-center h-100">
+                        <Button
+                          onClick={() =>
+                            navigate(`modificar/${prof.clave}`)
+                          }
+                          variant="primary"
+                          size="sm"
+                        >
+                          Modificar
+                        </Button>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() =>
+                            handleEliminar(prof.clave, prof.nombres, prof.apellidos, 'profesor')
+                          }>
+                          Eliminar
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -134,15 +193,17 @@ const Profesores = () => {
                 <Modal.Title>{`${show.clave}-${show.nombre} ${show.apellidos}`}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                Tem certeza de que deseja excluir este registro?
+                {show.eliminar === 'profesor' ? '¿Estás seguro de que deseas eliminar este registro?' : `¿Estás seeguro de que deseas eliminar el currículum del profesor ${show.nombre}?`}
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={() => handleEliminar2(show.clave)}>
-                  Fechar
+                <Button variant="secondary" onClick={handleClose}>
+                  Cerrar
                 </Button>
-                <Button variant="primary" onClick={handleClose}>
-                  Guardar mudanças
-                </Button>
+                  {show.eliminar === 'profesor' 
+                  ? <Button variant="danger" onClick={() => handleEliminarProfesor(show.clave)}>Eliminar</Button> 
+                  : <Button variant="danger" onClick={() => handleEliminarCurriculum(show.clave)}>Eliminar</Button>
+                  }
+                
               </Modal.Footer>
             </Modal>
           </Col>
