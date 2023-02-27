@@ -6,10 +6,12 @@ import ProfesoresAgregar from './components/ProfesoresAgregar';
 import BarraSuperior from './components/BarraSuperior';
 import ProfesoresModificar from './components/ProfesoresModificar';
 import Escolaridades from './components/Escolaridades';
-import Seccion1 from './components/Seccion1';
-import Seccion3 from './components/Seccion3';
-import Seccion4 from './components/Seccion4';
-import CrearCurriculum from './components/CrearCurriculum';
+import General from './components/General';
+import Experiencia from './components/Experiencia';
+import Otros from './components/Otros';
+import CrearCurriculum from './pages/CrearCurriculum';
+import VerCurriculum from './pages/VerCurriculum';
+import ModificarCurriculum from './pages/ModificarCurriculum';
 
 
 function App() {
@@ -23,11 +25,13 @@ function App() {
             <Route path='agregar' element = { <ProfesoresAgregar /> }/>
             <Route path='modificar/:c' element= { <ProfesoresModificar />}/>
             <Route path='curriculum/:id'>
-                <Route path='seccion1' element={<Seccion1 />}></Route>
+                <Route path='general' element={<General />}></Route>
                 <Route path='escolaridades' element={<Escolaridades />}></Route>
-                <Route path='seccion3' element={<Seccion3 />}></Route>
-                <Route path='seccion4' element={<Seccion4 />}></Route>
+                <Route path='experiencia' element={<Experiencia />}></Route>
+                <Route path='otros' element={<Otros />}></Route>
                 <Route path='crear' element={<CrearCurriculum />}></Route>
+                <Route path='ver' element={<VerCurriculum />}></Route>
+                <Route path='modificar' element={<ModificarCurriculum />}></Route>
             </Route>
           </Route>
         </Route>

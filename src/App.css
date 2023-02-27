@@ -2,6 +2,7 @@
   transition: all 0.2s ease;
   cursor: pointer;
   padding: 2rem;
+  /* position: absolute; */
 }
 .regresar:hover{
   translate: -0.5rem 0;

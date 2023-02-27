@@ -64,14 +64,14 @@ const Escolaridades = () => {
 
   return (
 
-    <Container className='mt-5'>
+    <Container className='my-5'>
         <Row>
           <Col>
             <ToastContainer /> 
           </Col>
         </Row>
         <Row>
-            <Col className='d-grid align-items-center justify-content-start fs-5'><div className='regresar' onClick={() => navigate(`/profesores/curriculum/${id}/seccion1`)}><FontAwesomeIcon icon={faAngleLeft} size='xl'/></div></Col>
+            <Col className='d-grid align-items-center justify-content-start fs-5'><div className='regresar' onClick={() => navigate(`/profesores/curriculum/${id}/general`)}><FontAwesomeIcon icon={faAngleLeft} size='xl'/></div></Col>
             <Col xs={8}>
                 <h1 className='text-center'>Escolaridades</h1>
                 <Form className='border rounded p-4 mt-4 text-start'>
@@ -102,9 +102,8 @@ const Escolaridades = () => {
 
                 </Form>
             </Col>
-            <Col className='d-grid align-items-center justify-content-end fs-5'><div className='siguiente' onClick={() => navigate(`/profesores/curriculum/${id}/seccion3`)}><FontAwesomeIcon icon={faAngleRight} size='xl'/></div></Col>
+            <Col className='d-grid align-items-center justify-content-end fs-5'><div className='siguiente' onClick={() => navigate(`/profesores/curriculum/${id}/experiencia`)}><FontAwesomeIcon icon={faAngleRight} size='xl'/></div></Col>
         </Row>
-       
     </Container>
   )
 }

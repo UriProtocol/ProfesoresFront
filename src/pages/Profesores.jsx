@@ -150,10 +150,10 @@ const Profesores = () => {
                     <td>
                       <div className="d-grid gap-2 place-content-center h-100">
                         {prof.curriculum === 0
-                        ? <Button variant="success" size="sm" onClick={() => navigate(`curriculum/${prof.clave}/seccion1`)}>Crear</Button>
+                        ? <Button variant="success" size="sm" onClick={() => navigate(`curriculum/${prof.clave}/general`)}>Crear</Button>
                         : <>
-                            <Button variant="info" size="sm">Ver</Button>
-                            <Button variant="warning" size="sm">Modificar</Button>
+                            <Button variant="info" onClick={() => navigate(`curriculum/${prof.clave}/ver`)} size="sm">Ver</Button>
+                            <Button variant="warning" onClick={() => navigate(`curriculum/${prof.clave}/modificar`)} size="sm">Modificar</Button>
                             <Button variant="danger" onClick={() => handleEliminar(prof.clave, prof.nombres, prof.apellidos, 'curriculum')} size="sm">Eliminar</Button>
                           </>
                         }
