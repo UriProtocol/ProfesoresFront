@@ -164,10 +164,11 @@ const ProfesoresAgregar = () => {
             <Form.Control type="text" placeholder="Ingresa tu estatus" name='estatus' value={} onChange={handleChange} required/>
           </Form.Group> */}
           
-          <Button variant="primary" type="submit">
-            Enviar
-          </Button>
-          <Button variant='danger' onClick={handleCancelar} className='ms-2'>Cancelar</Button>
+          <Container className='d-flex justify-content-center gap-4'>
+            <Button variant="secondary" size='lg' onClick={() => navigate('/profesores')}>Volver</Button>
+            <Button variant="primary" size='lg' type="submit">Enviar</Button>
+            <Button variant='danger' size='lg' onClick={handleCancelar} className='ms-2'>Cancelar</Button>
+          </Container>
         </Form>
       </Container>
     </>
