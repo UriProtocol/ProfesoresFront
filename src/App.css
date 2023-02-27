@@ -1,3 +1,10 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+	margin: 0;
+	padding: 0;
+}
+
 .regresar, .siguiente{
   transition: all 0.2s ease;
   cursor: pointer;
@@ -34,4 +41,18 @@
 .siguiente:hover::before{
   opacity: 1;
   translate: -4rem 0.25rem;
+}
+
+.flecha{
+  position: absolute;
+  top: 100%;
+}
+
+.cv-container{
+  background-color: white;
+}
+
+.general{
+  background-color: rgb(12, 113, 153);
+  color: white;
 }
