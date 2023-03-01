@@ -12,6 +12,7 @@ import Otros from './components/Otros';
 import CrearCurriculum from './pages/CrearCurriculum';
 import VerCurriculum from './pages/VerCurriculum';
 import ModificarCurriculum from './pages/ModificarCurriculum';
+import Login from './pages/Login';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route index element={<Home></Home>} />
           <Route path='profesores'>
             <Route index element = { <Profesores /> }/>
+            <Route path='ingresar' element = { <Login /> }/>
             <Route path='agregar' element = { <ProfesoresAgregar /> }/>
             <Route path='modificar/:c' element= { <ProfesoresModificar />}/>
             <Route path='curriculum/:id'>

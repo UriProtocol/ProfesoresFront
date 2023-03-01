@@ -15,8 +15,8 @@ const ProfesoresAgregar = () => {
     apellidos: '',
     fNacimiento: '',
     email: '',
-    sexo: '',
-    estadoCivil: '',
+    sexo: 'Masculino',
+    estadoCivil: 'Soltero(a)',
     tCasa: '',
     curp: '',
     tCelular: '',
@@ -25,18 +25,21 @@ const ProfesoresAgregar = () => {
     cp: '',
     municipio: '',
     estado: '',
+    pass: ''
     // estatus: ''
   }
   const [datos, setDatos] = useState(initialState)
-  const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
+  const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado, pass} = datos
+
   const handleChange = e =>{
     let {name, value} = e.target
     setDatos({...datos, [name]:value})
   }
   const navigate = useNavigate()
+
   const handleSubmit = async(e) =>{
     e.preventDefault()
-    const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado} = datos
+    const {clave, nombre, apellidos, fNacimiento, email, sexo, estadoCivil, tCasa, curp, tCelular, calle, colonia, cp, municipio, estado, pass} = datos
     const formData = new FormData()
 
     formData.append("clave",clave)
@@ -54,6 +57,8 @@ const ProfesoresAgregar = () => {
     formData.append("cp",cp)
     formData.append("municipio",municipio)
     formData.append("estado",estado)
+    formData.append("pass",pass)
+
 
     await axios.post("http://localhost:5000/profesores/agregar", formData).then(response =>{
       // console.log(response)
@@ -158,6 +163,10 @@ const ProfesoresAgregar = () => {
           <Form.Group className="mb-3" controlId="formsEstado">
             <Form.Label>Estado:</Form.Label>
             <Form.Control type="text" placeholder="Ingresa tu estado" name='estado' value={estado} onChange={handleChange} required/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formPassword">
+            <Form.Label>Contraseña :</Form.Label>
+            <Form.Control type="text" placeholder="Ingresa tu contraseña" name='pass' value={pass} onChange={handleChange} required/>
           </Form.Group>
           {/* <Form.Group className="mb-3" controlId="formsEstatus">
             <Form.Label>Estatus:</Form.Label>

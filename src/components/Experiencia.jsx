@@ -90,11 +90,11 @@ const Experiencia = () => {
                     </Form.Group>
                     <Form.Group controlId='fInicio' className='mb-3'>
                         <Form.Label className='ms-1'>Fecha de inicio:</Form.Label>
-                        <Form.Control type='text' placeholder='Ej: 12 de enero de 2020' name='fInicio' value={fInicio} onChange={handleChange}/>
+                        <Form.Control type='date' placeholder='Ej: 12 de enero de 2020' name='fInicio' value={fInicio} onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group controlId='fFinal' className='mb-3'>
                         <Form.Label className='ms-1'>Fecha de fin:</Form.Label>
-                        <Form.Control type='text' placeholder='Ej: 12 de enero de 2021' name='fFinal' value={fFinal} onChange={handleChange}/>
+                        <Form.Control type='date' placeholder='Ej: 12 de enero de 2021' name='fFinal' value={fFinal} onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group controlId='descripcion'>
                         <Form.Label className='ms-1'>Descripción:</Form.Label>
