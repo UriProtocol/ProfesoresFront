@@ -195,7 +195,7 @@ const ProfesoresModificar = () => {
           
           <Container className='d-flex justify-content-center gap-4 my-5'>
             <Button variant="secondary" size='lg' onClick={() => navigate('/profesores')}>Volver</Button>
-            <Button variant="primary" size='lg' type="submit">Enviar</Button>
+            <Button variant="primary" size='lg' type="submit">Modificar</Button>
             <Button variant='danger' size='lg'  onClick={handleCancelar}>Cancelar</Button>
           </Container>
         </Form>

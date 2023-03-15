@@ -135,6 +135,7 @@ const Profesores = () => {
                   <th>Tel. Movil</th>
                   <th>Estatus</th>
                   <th>Curriculum</th>
+                  <th>Actividades</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -157,6 +158,13 @@ const Profesores = () => {
                             <Button variant="danger" onClick={() => handleEliminar(prof.clave, prof.nombres, prof.apellidos, 'curriculum')} size="sm">Eliminar</Button>
                           </>
                         }
+                      </div>
+                    </td>
+                    <td>
+                      <div className="d-grid gap-2">
+                        <Button variant="success" size="sm" onClick={() => navigate(`actividades/agregar/${prof.clave}`)}>Agregar</Button>
+                        <Button variant="primary" size="sm" onClick={() => navigate(`actividades/ver/${prof.clave}`)}>Ver</Button>
+
                       </div>
                     </td>
                     <td>
@@ -193,7 +201,7 @@ const Profesores = () => {
                 <Modal.Title>{`${show.clave}-${show.nombre} ${show.apellidos}`}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                {show.eliminar === 'profesor' ? '¿Estás seguro de que deseas eliminar este registro?' : `¿Estás seeguro de que deseas eliminar el currículum del profesor ${show.nombre}?`}
+                {show.eliminar === 'profesor' ? '¿Estás seguro de que deseas eliminar este registro?' : `¿Estás seguro de que deseas eliminar el currículum del profesor ${show.nombre}?`}
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>

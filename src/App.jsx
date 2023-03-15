@@ -13,6 +13,9 @@ import CrearCurriculum from './pages/CrearCurriculum';
 import VerCurriculum from './pages/VerCurriculum';
 import ModificarCurriculum from './pages/ModificarCurriculum';
 import Login from './pages/Login';
+import ActividadesAgregar from './pages/ActividadesAgregar';
+import ActividadesVer from './pages/ActividadesVer';
+import ActividadesModificar from './pages/ActividadesModificar';
 
 
 function App() {
@@ -34,6 +37,11 @@ function App() {
                 <Route path='crear' element={<CrearCurriculum />}></Route>
                 <Route path='ver' element={<VerCurriculum />}></Route>
                 <Route path='modificar' element={<ModificarCurriculum />}></Route>
+            </Route>
+            <Route path='actividades'>
+              <Route path='agregar/:clave' element={<ActividadesAgregar />}/>
+              <Route path='ver/:clave' element={<ActividadesVer/>}/>
+              <Route path='modificar/:id' element={<ActividadesModificar/>}/>
             </Route>
           </Route>
         </Route>

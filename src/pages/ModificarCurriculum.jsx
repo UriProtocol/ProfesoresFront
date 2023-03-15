@@ -200,8 +200,8 @@ const ModificarCurriculum = () => {
 
         function notify(num) {
             if (num === 200) {
-              toast.success(
-                'Curriculum creado',
+              toast.info(
+                'Curriculum modificado',
                 {
                   position: toast.POSITION.TOP_CENTER,
                   onClose: () => {
